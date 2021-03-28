@@ -90,9 +90,9 @@ create table Indicators (
     dividend_payout_ratio decimal(21, 16) not null,
     pb_value_ratio decimal(21, 16) not null,
     pe_growth_ratio decimal(21, 16) not null,
-    eps_growth decimal(21, 16) not null
+    eps_growth decimal(21, 16) not null,
     sector char(15) not null,
-    price_var decimal(21, 16) not null
+    price_var decimal(21, 16) not null,
     primary key (year, symbol)
 );
 
@@ -106,9 +106,9 @@ alter table Indicators add constraint fk_Indicators_Stock foreign key (symbol) r
 select '----------------------------------------------------------------' as '';
 select 'Comments' as '';
 create table Comments (
-	date date not null,
+	date datetime not null,
 	symbol char(15) not null,
-    comment varchar(255) not null
+    comment varchar(255) not null,
     primary key (date, symbol),
     foreign key (symbol) references Stocks(symbol)
 );

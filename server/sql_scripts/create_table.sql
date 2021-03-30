@@ -74,23 +74,6 @@ insert into Stocks select distinct t1.symbol from News t1 where not exists ( sel
 -- add the foreign key (need to do after making sure Stocks table has the stock)
 alter table News add constraint fk_News_Stock foreign key (symbol) references Stocks(symbol);
 
--- create IPO table
-select '----------------------------------------------------------------' as '';
-select 'IPO' as '';
-create table IPO (
-	date date not null,
-	symbol char(15) not null,
-	open decimal(21, 16) not null,
-	high decimal(21, 16) not null,
-	low decimal(21, 16) not null,
-	close decimal(21, 16) not null,
-	volume decimal(21, 16) not null,
-    primary key (date, symbol)
-);
-
--- TO DO: LOAD THE IPO TABLE
--- TO DO: ADD FK REFERENCING STOCKS TABLE
-
 -- create Indicators table
 select '----------------------------------------------------------------' as '';
 select 'Indicators' as '';
@@ -107,8 +90,25 @@ create table Indicators (
     dividend_payout_ratio decimal(21, 16) not null,
     pb_value_ratio decimal(21, 16) not null,
     pe_growth_ratio decimal(21, 16) not null,
+    eps_growth decimal(21, 16) not null,
+    sector char(15) not null,
+    price_var decimal(21, 16) not null,
     primary key (year, symbol)
 );
 
 -- TO DO: LOAD THE INDICATORS TABLE
--- TO DO: ADD FK REFERENCING STOCKS TABLE
+-- insert into Stocks table if stock doesn't exist already
+insert into Stocks select distinct t1.symbol from Indicators t1 where not exists ( select symbol from Stocks t2 where t2.symbol = t1.symbol );
+-- add the foreign key (need to do after making sure Stocks table has the stock)
+alter table Indicators add constraint fk_Indicators_Stock foreign key (symbol) references Stocks(symbol);
+
+-- create Comments table
+select '----------------------------------------------------------------' as '';
+select 'Comments' as '';
+create table Comments (
+	date datetime not null,
+	symbol char(15) not null,
+    comment varchar(255) not null,
+    primary key (date, symbol),
+    foreign key (symbol) references Stocks(symbol)
+);

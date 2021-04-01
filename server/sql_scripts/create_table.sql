@@ -1,3 +1,10 @@
+-- Clean out the old teefile; likely this command is system specific
+\! rm -f project-outfile.txt
+tee project-outfile.txt;
+
+-- Show warnings after every statement
+warnings;
+
 -- drop tables
 drop view if exists Publisher;
 drop table if exists History;
@@ -25,76 +32,76 @@ create table Stock (
     primary key (symbol)
 );
 
--- -- create Indicator table
--- select '----------------------------------------------------------------' as '';
--- select 'Indicator' as '';
--- create table Indicator (
---     year int not null,
--- 	symbol char(5) not null,
--- 	eps decimal(21, 16),
--- 	revenue decimal(21, 16),
--- 	costOfRevenue decimal(21, 16),
--- 	grossProfit decimal(21, 16),
--- 	peRatio decimal(21, 16),
--- 	debtRatio decimal(21, 16),
---     dividendYield decimal(21, 16),
---     dividendPayoutRatio decimal(21, 16),
---     pbValueRatio decimal(21, 16),
---     pegRatio decimal(21, 16),
---     epsGrowth decimal(21, 16),
---     sector char(25) not null,
---     priceVar decimal(21, 16) not null,
---     primary key (year, symbol)
--- );
+-- create Indicator table
+select '----------------------------------------------------------------' as '';
+select 'Indicator' as '';
+create table Indicator (
+    year int not null,
+     symbol char(5) not null,
+     eps decimal(11, 4),
+     revenue int,
+     costOfRevenue int,
+     grossProfit int,
+     peRatio decimal(8, 4),
+     debtRatio decimal(8, 4),
+    dividendYield decimal(9, 6),
+    dividendPayoutRatio decimal(9, 6),
+    pbValueRatio decimal(13, 4),
+    pegRatio decimal(8, 4),
+    epsGrowth decimal(7, 4),
+    sector char(25) not null,
+    priceVar decimal(12, 7) not null,
+    primary key (year, symbol)
+);
 
--- -- load the 2014 Indicator data into Indicator table
--- load data infile '/var/lib/mysql-files/18-Stocks/PLACEHOLDER.csv' ignore into table Indicator
---      fields terminated by ','
---      lines terminated by '\n'
---      ignore 1 lines
---      (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
---      set year = 2014;
+-- load the 2014 Indicator data into Indicator table
+load data infile '/var/lib/mysql-files/18-Stocks/Project37/2014_Financial_Data_Clean.csv' ignore into table Indicator
+     fields terminated by ','
+     lines terminated by '\n'
+     ignore 1 lines
+     (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
+     set year = 2014;
 
--- -- load the 2015 Indicator data into Indicator table
--- load data infile '/var/lib/mysql-files/18-Stocks/PLACEHOLDER.csv' ignore into table Indicator
---      fields terminated by ','
---      lines terminated by '\n'
---      ignore 1 lines
---      (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
---      set year = 2015;
+-- load the 2015 Indicator data into Indicator table
+load data infile '/var/lib/mysql-files/18-Stocks/Project37/2015_Financial_Data_Clean.csv' ignore into table Indicator
+     fields terminated by ','
+     lines terminated by '\n'
+     ignore 1 lines
+     (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
+     set year = 2015;
 
--- -- load the 2016 Indicator data into Indicator table
--- load data infile '/var/lib/mysql-files/18-Stocks/PLACEHOLDER.csv' ignore into table Indicator
---      fields terminated by ','
---      lines terminated by '\n'
---      ignore 1 lines
---      (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
---      set year = 2016;
+-- load the 2016 Indicator data into Indicator table
+load data infile '/var/lib/mysql-files/18-Stocks/Project37/2016_Financial_Data_Clean.csv' ignore into table Indicator
+     fields terminated by ','
+     lines terminated by '\n'
+     ignore 1 lines
+     (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
+     set year = 2016;
 
--- -- load the 2017 Indicator data into Indicator table
--- load data infile '/var/lib/mysql-files/18-Stocks/PLACEHOLDER.csv' ignore into table Indicator
---      fields terminated by ','
---      lines terminated by '\n'
---      ignore 1 lines
---      (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
---      set year = 2017;
+-- load the 2017 Indicator data into Indicator table
+load data infile '/var/lib/mysql-files/18-Stocks/Project37/2017_Financial_Data_Clean.csv' ignore into table Indicator
+     fields terminated by ','
+     lines terminated by '\n'
+     ignore 1 lines
+     (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
+     set year = 2017;
 
--- -- load the 2018 Indicator data into Indicator table
--- load data infile '/var/lib/mysql-files/18-Stocks/PLACEHOLDER.csv' ignore into table Indicator
---      fields terminated by ','
---      lines terminated by '\n'
---      ignore 1 lines
---      (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
---      set year = 2018;
+-- load the 2018 Indicator data into Indicator table
+load data infile '/var/lib/mysql-files/18-Stocks/Project37/2018_Financial_Data_Clean.csv' ignore into table Indicator
+     fields terminated by ','
+     lines terminated by '\n'
+     ignore 1 lines
+     (symbol, revenue, costOfRevenue, grossProfit, eps, pbValueRatio, peRatio, pegRatio, dividendYield, debtRatio, dividendPayoutRatio, epsGrowth, sector, priceVar)
+     set year = 2018;
 
--- -- insert into Sector table
--- insert into Sector select distinct sector from Indicator;
--- -- insert into Stock table if stock doesn't exist already
--- insert into Stock select distinct symbol, sector from Indicator;
--- -- add the foreign key (need to do after making sure Sector table has the sector)
--- alter table Stock add constraint fk_Stock_Sector foreign key (sector) references Sector(sector);
--- -- add the foreign key (need to do after making sure Stock table has the stock)
--- alter table Indicator add constraint fk_Indicator_Stock foreign key (symbol) references Stock(symbol);
+-- insert into Sector table
+insert into Sector select distinct sector from Indicator;
+-- insert into Stock table if stock doesn't exist already
+insert into Stock select distinct symbol, sector from Indicator;
+-- add the foreign key (need to do after making sure Sector table has the sector)
+alter table Stock add constraint fk_Stock_Sector foreign key (sector) references Sector(sector);
+-- add the foreign key (need to do after making sure Stock table has the stock)
+alter table Indicator add constraint fk_Indicator_Stock foreign key (symbol) references Stock(symbol);
 
 -- create News table
 select '----------------------------------------------------------------' as '';
@@ -171,3 +178,7 @@ create table Comment (
     primary key (date, symbol),
     foreign key (symbol) references Stock(symbol)
 );
+
+-- Done
+nowarning
+notee

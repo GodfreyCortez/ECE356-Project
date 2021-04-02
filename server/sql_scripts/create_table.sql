@@ -177,7 +177,8 @@ load data infile '/var/lib/mysql-files/18-Stocks/raw_analyst_ratings.csv' ignore
      lines terminated by '\n'
      ignore 1 lines
      (@ignore, headline, url, publisher, @date, symbol)
-     set date = date_format(@date, '%Y-%m-%d');
+     set  date = date_format(@date, '%Y-%m-%d'),
+          symbol = replace(replace(symbol, CHAR(10), ''), CHAR(13), ''); -- used to remove the line break character at the end
 
 -- load News table with Benzinga partner data
 load data infile '/var/lib/mysql-files/18-Stocks/raw_partner_headlines.csv' ignore into table News
@@ -186,7 +187,8 @@ load data infile '/var/lib/mysql-files/18-Stocks/raw_partner_headlines.csv' igno
      lines terminated by '\n'
      ignore 1 lines
      (@ignore, headline, url, publisher, @date, symbol)
-     set date = date_format(@date, '%Y-%m-%d');
+     set  date = date_format(@date, '%Y-%m-%d'),
+          symbol = replace(replace(symbol, CHAR(10), ''), CHAR(13), ''); -- used to remove the line break character at the end
 
 -- insert into Stock table if stock doesn't exist already
 insert into Stock select distinct t1.symbol, NULL from News t1 where not exists ( select distinct symbol from Stock t2 where t2.symbol = t1.symbol );

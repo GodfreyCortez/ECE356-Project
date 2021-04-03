@@ -59,7 +59,7 @@ public class History {
             System.out.println(at.render());
             conn.close();
         }catch (Exception e) {
-
+            System.err.println("Could not generate resultSet");
         }
     }
 }

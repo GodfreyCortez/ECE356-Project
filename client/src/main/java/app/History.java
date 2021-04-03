@@ -56,7 +56,7 @@ public class History {
                 cols.clear();
             }
 
-            at.getContext().setWidth(50);
+            at.getContext().setWidth(100);
 
             System.out.println(at.render());
             conn.close();

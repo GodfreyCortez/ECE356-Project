@@ -167,7 +167,7 @@ create table News (
     symbol char(5) not null,
     publisher varchar(255) not null,
     url varchar(255) not null,
-    primary key (date, headline)
+    primary key (date, headline, publisher)
 );	
 
 -- load News table with Benzinga data

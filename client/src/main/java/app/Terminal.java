@@ -17,28 +17,20 @@ public class Terminal {
     }
 
     public void start() {
-        console.printf("Welcome to the stocks app! For more information type 'man', to quit type 'q'");
+        console.printf("Welcome to the stocks app! For more information type 'man', to quit type 'q'\r\n");
         while(true) {
             String input = console.readLine("stocks>").toLowerCase();
             String[] commandList = input.split(" ");
 
-            try {
-                String[] options = Arrays.copyOfRange(commandList, 1, commandList.length);
-                switch(commandList[0]) {
-                    case "info":
-                        History.dayQuery(options, this.ds);
-                        break;
-                    case "quit":
-                        ds.close();
-                        break;
-                }
-            } catch(SQLException e) {
-                System.err.println("Couldn't close connection successfully");
-                System.err.println("SQLException: " + e.getMessage());
-                System.err.println("SQLState: " + e.getSQLState());
-                System.err.println("VendorError: " + e.getErrorCode());
+            String[] options = Arrays.copyOfRange(commandList, 1, commandList.length);
+            switch(commandList[0]) {
+                case "info":
+                    History.dayQuery(options, this.ds);
+                    break;
+                case "quit":
+                    console.printf("Goodbye!\r\n");
+                    return;
             }
-
         }
     }
 

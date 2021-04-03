@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Driver {
     public static void main(String[] args) {
@@ -30,21 +31,29 @@ public class Driver {
 
         String connectString = "jdbc:mysql://marmoset04.shoshin.uwaterloo.ca:3306/project_37?useSSL=false&allowPublicKeyRetrieval=true";
 
-        try (Connection con = DriverManager.getConnection(connectString, username, String.valueOf(password))) {
-            String query = "SELECT VERSION()";
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
+        BasicDataSource ds = new BasicDataSource();
+        ds.setUrl(connectString);
+        ds.setUsername(username);
+        ds.setPassword(String.valueOf(password));
+        ds.setMinIdle(2);
 
-            if (rs.next()) {
-                System.out.println(rs.getString(1));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            System.err.println("Unable to connect to database");
-            System.err.println("SQLException: " + e.getMessage());
-            System.err.println("SQLState: " + e.getSQLState());
-            System.err.println("VendorError: " + e.getErrorCode());
-        }
+        Terminal t = new Terminal(ds, console);
+        t.start();
+//        try (Connection con = DriverManager.getConnection(connectString, username, String.valueOf(password))) {
+//            String query = "SELECT VERSION()";
+//            Statement st = con.createStatement();
+//            ResultSet rs = st.executeQuery(query);
+//
+//            if (rs.next()) {
+//                System.out.println(rs.getString(1));
+//            }
+//            rs.close();
+//        } catch (SQLException e) {
+//            System.err.println("Unable to connect to database");
+//            System.err.println("SQLException: " + e.getMessage());
+//            System.err.println("SQLState: " + e.getSQLState());
+//            System.err.println("VendorError: " + e.getErrorCode());
+//        }
 
     }
 }

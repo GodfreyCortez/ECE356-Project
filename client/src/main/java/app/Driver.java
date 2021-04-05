@@ -39,21 +39,5 @@ public class Driver {
 
         Terminal t = new Terminal(ds, console);
         t.start();
-//        try (Connection con = DriverManager.getConnection(connectString, username, String.valueOf(password))) {
-//            String query = "SELECT VERSION()";
-//            Statement st = con.createStatement();
-//            ResultSet rs = st.executeQuery(query);
-//
-//            if (rs.next()) {
-//                System.out.println(rs.getString(1));
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            System.err.println("Unable to connect to database");
-//            System.err.println("SQLException: " + e.getMessage());
-//            System.err.println("SQLState: " + e.getSQLState());
-//            System.err.println("VendorError: " + e.getErrorCode());
-//        }
-
     }
 }

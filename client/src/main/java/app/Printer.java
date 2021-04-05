@@ -39,4 +39,22 @@ public class Printer {
             System.err.println("Unable to print results!");
         }
     }
+
+    public static void printInsertError() {
+        System.err.println("Unable to insert");
+    }
+
+    public static void printQueryError() {
+        System.err.println("Could not query the data");
+    }
+
+    public static void printDeleteError() {
+        System.err.println("Could not delete the data");
+    }
+
+    public static void printSQLException(SQLException e) {
+        System.err.println("SQLException: " + e.getMessage());
+        System.err.println("SQLState: " + e.getSQLState());
+        System.err.println("VendorError: " + e.getErrorCode());
+    }
 }

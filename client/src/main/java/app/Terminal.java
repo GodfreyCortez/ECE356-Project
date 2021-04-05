@@ -60,7 +60,7 @@ public class Terminal {
                             //add news
                             break;
                         case "history":
-                            //add history
+                            History.addHistory(ds, console);
                             break;
                         case "comment":
                             //add comment
@@ -80,7 +80,7 @@ public class Terminal {
                             //delete indicator
                             break;
                         case "history":
-                            //delete history
+                            History.deleteHistory(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
                             break;
                         case "comment":
                             //delete comment

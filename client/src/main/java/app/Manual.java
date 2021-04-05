@@ -31,7 +31,7 @@ public class Manual {
     }
     private static String history() {
         return  header("History:") +
-                command("info [-s][-d]") +
+                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>]") +
                 command("add history") +
                 command("delete history [-s][-d]");
     }

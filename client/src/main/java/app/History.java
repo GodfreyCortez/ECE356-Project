@@ -2,12 +2,9 @@ package app;
 
 import app.tableOptions.HistoryOptions;
 import com.beust.jcommander.JCommander;
-import de.vandermeer.asciitable.AsciiTable;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class History {
 
@@ -22,7 +19,14 @@ public class History {
         try {
             Connection conn = ds.getConnection();
             Date date = null;
-            if(ho.date != null) {
+            Date startDate = null;
+            Date endDate = null;
+
+            if(ho.dateRange != null) {
+                startDate = Date.valueOf(ho.dateRange.get(0));
+                endDate = Date.valueOf(ho.dateRange.get(1));
+                sb.append("and date >= ? and date <= ?");
+            } else if(ho.date != null) {
                 date = Date.valueOf(ho.date);
                 sb.append("and date = ?");
             }
@@ -31,7 +35,10 @@ public class History {
             PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());
             preparedStmt.setString(1, ho.symbol);
 
-            if(date != null)
+            if(ho.dateRange != null) {
+                preparedStmt.setDate(2, startDate);
+                preparedStmt.setDate(3, endDate);
+            } else if(date != null)
                 preparedStmt.setDate(2, date);
 
             ResultSet rs = preparedStmt.executeQuery();

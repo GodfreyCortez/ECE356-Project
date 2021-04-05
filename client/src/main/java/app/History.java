@@ -35,30 +35,7 @@ public class History {
                 preparedStmt.setDate(2, date);
 
             ResultSet rs = preparedStmt.executeQuery();
-            ResultSetMetaData rsmd = rs.getMetaData();
-
-            int columnsCount = rsmd.getColumnCount();
-            AsciiTable at = new AsciiTable();
-            at.addRule();
-            List<String> cols = new ArrayList<String>();
-            for(int i = 1; i <= columnsCount; i++) {
-                cols.add(rsmd.getColumnName(i));
-            }
-            at.addRow(cols);
-            at.addRule();
-            cols.clear();
-            while(rs.next()) {
-                for(int i = 1; i <= columnsCount; i++) {
-                    cols.add(rs.getString(i));
-                }
-                at.addRow(cols);
-                at.addRule();
-                cols.clear();
-            }
-
-            at.getContext().setWidth(100);
-
-            System.out.println(at.render());
+            Printer.printQuery(rs);
             conn.close();
         }catch (Exception e) {
             System.err.println("Could not generate resultSet");

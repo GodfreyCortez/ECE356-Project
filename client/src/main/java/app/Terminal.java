@@ -3,13 +3,11 @@ package app;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
-import java.sql.Array;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 public class Terminal {
-    private BasicDataSource ds = null;
-    private Console console = null;
+    private BasicDataSource ds;
+    private Console console;
 
     Terminal(BasicDataSource ds, Console console) {
         this.ds = ds;

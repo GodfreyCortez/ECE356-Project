@@ -44,6 +44,7 @@ public class Terminal {
                     break;
                 case "sector":
                     //get sector
+                    Sector.getSectors(ds);
                     break;
                 case "publisher":
                     //get publisher

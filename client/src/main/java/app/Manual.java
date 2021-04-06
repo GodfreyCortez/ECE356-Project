@@ -43,7 +43,7 @@ public class Manual {
     }
     private static String sector() {
         return  header("Sector:") +
-                command("sector [-a]");
+                command("sector");
     }
     private static String publisher() {
         return  header("Publisher:") +

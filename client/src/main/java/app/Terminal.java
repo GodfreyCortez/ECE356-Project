@@ -28,6 +28,7 @@ public class Terminal {
                     break;
                 case "stock":
                     //get stock
+                    Stock.query(options, this.ds);
                     break;
                 case "indicator":
                     //get indicator
@@ -44,7 +45,7 @@ public class Terminal {
                     break;
                 case "sector":
                     //get sector
-                    Sector.getSectors(ds);
+                    Sector.getSectors(this.ds);
                     break;
                 case "publisher":
                     //get publisher
@@ -53,6 +54,7 @@ public class Terminal {
                     switch(commandList[1]){
                         case "stock":
                             //add stock
+                            Stock.addStock(this.ds, console);
                             break;
                         case "indicator":
                             //add indicator
@@ -61,7 +63,7 @@ public class Terminal {
                             //add news
                             break;
                         case "history":
-                            History.addHistory(ds, console);
+                            History.addHistory(this.ds, console);
                             break;
                         case "comment":
                             //add comment
@@ -76,6 +78,7 @@ public class Terminal {
                     switch(commandList[1]){
                         case "stock":
                             //delete stock
+                            Stock.delete(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
                             break;
                         case "indicator":
                             //delete indicator

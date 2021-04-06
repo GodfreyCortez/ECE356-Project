@@ -14,9 +14,9 @@ public class Manual {
     }
     private static String stock() {
         return  header("Stock:") +
-                command("stock [-a]") +
+                command("stock [-sec <sector>]") +
                 command("add stock") +
-                command("delete stock <symbol>");
+                command("delete stock -s <symbol>");
     }
     private static String indicator() {
         return  header("Indicator:") +
@@ -33,7 +33,7 @@ public class Manual {
         return  header("History:") +
                 command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>]") +
                 command("add history") +
-                command("delete history [-s][-d]");
+                command("delete history [-s <stock>][-d]");
     }
     private static String comment() {
         return  header("Comment:") +

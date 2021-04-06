@@ -11,26 +11,13 @@ import java.util.List;
 
 public class History {
     public static void addHistory(BasicDataSource ds, Console console) {
-        StringBuilder sb = new StringBuilder();
         String[] columns = {"date", "symbol", "open", "high", "low", "close", "adjClose", "volume" };
-        sb.append("insert into History (");
-        for(String col : columns) {
-            sb.append(col);
-            if(!col.equals(columns[columns.length - 1]))
-                sb.append(",");
-        }
-        sb.append(") ");
-        sb.append("values (?,?,?,?,?,?,?,?);");
+        String query = Printer.generateInsert(columns, "History");
 
         try {
             Connection conn = ds.getConnection();
-            PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());
-            console.printf("Please input the information\r\n");
-            List<String> inputs = new ArrayList<>();
-
-            for(String col : columns) {
-                inputs.add(console.readLine(col+ ": "));
-            }
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            List<String> inputs = Printer.retrieveInputs(columns, console);
 
             preparedStmt.setDate(1, Date.valueOf(inputs.get(0)));
             preparedStmt.setString(2, inputs.get(1));

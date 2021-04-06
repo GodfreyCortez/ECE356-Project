@@ -20,11 +20,18 @@ public class Indicator {
         try {
             Connection conn = ds.getConnection();
 
+            if(io.symbol != null || io.year != null || io.sector != null)
+                sb.append(" where ");
+
             if(io.symbol != null)
-                sb.append(" where symbol = ?");
+                sb.append(" symbol = ? ");
             if(io.year != null)
-                sb.append(" where year = ?");
+                if(io.symbol != null)
+                    sb.append(" and ");
+                sb.append(" year = ? ");
             if(io.sector != null)
+                if(io.symbol != null || io.year != null)
+                    sb.append(" and ");
                 sb.append(" where sector like ?");
 
             sb.append(";");

@@ -32,6 +32,7 @@ public class Terminal {
                     break;
                 case "indicator":
                     //get indicator
+                    Indicator.getIndicators(options, this.ds);
                     break;
                 case "news":
                     //get news
@@ -58,6 +59,7 @@ public class Terminal {
                             break;
                         case "indicator":
                             //add indicator
+                            Indicator.addIndicator(this.ds, console);
                             break;
                         case "news":
                             //add news
@@ -82,6 +84,7 @@ public class Terminal {
                             break;
                         case "indicator":
                             //delete indicator
+                            Indicator.deleteIndicator(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
                             break;
                         case "history":
                             History.deleteHistory(Arrays.copyOfRange(commandList, 2, commandList.length), ds);

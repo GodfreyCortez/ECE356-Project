@@ -18,6 +18,6 @@ public class NewsOptions {
     @Parameter(names = { "-d", "-dates" }, description = "A singular day to be checked")
     public String date = null;
 
-    @Parameter(names = {"-r","-range"}, arity=2, description = "A date range for to check the particular stock")
+    @Parameter(names = {"-r","-range"}, arity=2, description = "A date range to check the particular stock articles")
     public List<String> dateRange = null;
 }

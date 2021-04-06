@@ -50,6 +50,7 @@ public class Terminal {
                     break;
                 case "publisher":
                     //get publisher
+                    Publisher.getPublishers(this.ds);
                     break;
                 case "add": // if first string is add, we need to check what the second string is
                     switch(commandList[1]){

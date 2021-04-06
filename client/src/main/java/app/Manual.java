@@ -47,7 +47,7 @@ public class Manual {
     }
     private static String publisher() {
         return  header("Publisher:") +
-                command("publisher [-a]");
+                command("publisher");
     }
     public static void printManual(Console console) {
         String str = "Program Commands:\r\n" +

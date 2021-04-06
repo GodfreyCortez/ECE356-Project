@@ -20,9 +20,9 @@ public class Manual {
     }
     private static String indicator() {
         return  header("Indicator:") +
-                command("indicator [-s][-y][-sec]") +
+                command("indicator [-s <stock>][-y <year>][-sec <sector>]") +
                 command("add indicator") +
-                command("delete indicator [-s][-y]");
+                command("delete indicator [-s <stock>][-y <year>]");
     }
     private static String news() {
         return  header("News:") +

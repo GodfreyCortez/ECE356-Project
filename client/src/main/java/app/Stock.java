@@ -24,9 +24,10 @@ public class Stock {
             Connection conn = ds.getConnection();
             String sector = null;
             if(so.sector != null) {
-                sb.append(" where sector like ?;");
+                sb.append(" where sector like ?");
                 sector = so.sector;
             }
+            sb.append(";");
 
             PreparedStatement preparedStatement = conn.prepareStatement(sb.toString());
 

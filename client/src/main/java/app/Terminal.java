@@ -20,7 +20,7 @@ public class Terminal {
             String input = console.readLine("stocks>").toLowerCase();
             String[] commandList = input.split(" ");
 
-            String[] options = Arrays.copyOfRange(commandList, 1, commandList.length);
+            String[] options = commandList.length < 2 ? commandList : Arrays.copyOfRange(commandList, 1, commandList.length);
             switch(commandList[0]) {
                 case "manual":
                     // print manual
@@ -55,6 +55,10 @@ public class Terminal {
                     Publisher.getPublishers(this.ds);
                     break;
                 case "add": // if first string is add, we need to check what the second string is
+                    if(commandList.length < 2) {
+                        console.printf("Invalid option entered. Please enter valid option from manual!\r\n");
+                        break;
+                    }
                     switch(commandList[1]){
                         case "stock":
                             //add stock
@@ -82,6 +86,10 @@ public class Terminal {
                     }
                     break;
                 case "delete": // if first string is delete, we need to check what the second string is
+                    if(commandList.length < 3) {
+                        console.printf("Invalid option entered. Please enter valid option from manual!\r\n");
+                        break;
+                    }
                     switch(commandList[1]){
                         case "stock":
                             //delete stock

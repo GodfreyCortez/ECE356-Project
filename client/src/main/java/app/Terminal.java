@@ -20,7 +20,7 @@ public class Terminal {
             String input = console.readLine("stocks>").toLowerCase();
             String[] commandList = input.split(" ");
 
-            String[] options = commandList.length < 2 ? commandList : Arrays.copyOfRange(commandList, 1, commandList.length);
+            String[] options = commandList.length < 2 ? new String[0] : Arrays.copyOfRange(commandList, 1, commandList.length);
             switch(commandList[0]) {
                 case "manual":
                     // print manual

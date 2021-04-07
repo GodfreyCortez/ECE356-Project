@@ -33,7 +33,7 @@ public class Manual {
         return  header("History:") +
                 command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>]") +
                 command("add history") +
-                command("delete history [-s <stock>][-d]");
+                command("delete history <-s <stock>>[-d]");
     }
     private static String comment() {
         return  header("Comment:") +

@@ -81,6 +81,21 @@ public class History {
         }
     }
 
+    public static void dayQuery(String stockSymbol, BasicDataSource ds) {
+        String query = "select * from History where symbol = ? order by date desc limit 1;";
+
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, stockSymbol);
+            ResultSet rs = ps.executeQuery();
+            Printer.printQuery(rs);
+            conn.close();
+        } catch(SQLException e) {
+            Printer.printQueryError(e);
+        }
+    }
+
     public static void dayQuery(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from History where symbol = ? ");
         HistoryOptions ho = new HistoryOptions();
@@ -88,6 +103,16 @@ public class History {
                 .addObject(ho)
                 .build()
                 .parse(options);
+
+        if(ho.symbol == null) {
+            System.out.println("Please input a symbol with the -s option");
+            return;
+        }
+
+        if(!ho.all && ho.dateRange == null && ho.date == null) {
+            dayQuery(ho.symbol, ds);
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();

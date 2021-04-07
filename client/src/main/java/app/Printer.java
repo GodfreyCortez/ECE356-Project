@@ -54,7 +54,8 @@ public class Printer {
             cols.clear();
             while(rs.next()) {
                 for(int i = 1; i <= columnsCount; i++) {
-                    cols.add(rs.getString(i));
+                    String res = rs.getString(i);
+                    cols.add( res == null ? "N/A" : res);
                 }
                 at.addRow(cols);
                 at.addRule();

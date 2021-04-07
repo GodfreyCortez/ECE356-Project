@@ -9,6 +9,7 @@ import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class Comment {
     public static void addComment(BasicDataSource ds, Console console) {

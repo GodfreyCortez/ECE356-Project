@@ -156,7 +156,7 @@ insert into Stock select distinct symbol, sector from Indicator;
 -- add the foreign key (need to do after making sure Sector table has the sector)
 alter table Stock add constraint fk_Stock_Sector foreign key (sector) references Sector(sector);
 -- add the foreign key (need to do after making sure Stock table has the stock)
-alter table Indicator add constraint fk_Indicator_Stock foreign key (symbol) references Stock(symbol);
+alter table Indicator add constraint fk_Indicator_Stock foreign key (symbol) references Stock(symbol) on delete cascade;
 
 -- create News table
 select '----------------------------------------------------------------' as '';
@@ -193,7 +193,7 @@ load data infile '/var/lib/mysql-files/18-Stocks/raw_partner_headlines.csv' igno
 -- insert into Stock table if stock doesn't exist already
 insert into Stock select distinct t1.symbol, NULL from News t1 where not exists ( select distinct symbol from Stock t2 where t2.symbol = t1.symbol );
 -- add the foreign key (need to do after making sure Stock table has the stock)
-alter table News add constraint fk_News_Stock foreign key (symbol) references Stock(symbol);
+alter table News add constraint fk_News_Stock foreign key (symbol) references Stock(symbol) on delete cascade;
 
 -- create publisher view
 select '----------------------------------------------------------------' as '';
@@ -225,7 +225,7 @@ load data infile '/var/lib/mysql-files/18-Stocks/fh_5yrs.csv' ignore into table 
 -- insert into Stock table
 insert into Stock select distinct t1.symbol, NULL from History t1 where not exists ( select distinct symbol from Stock t2 where t2.symbol = t1.symbol );
 -- add the foreign key (need to do after making sure Stock table has the stock)
-alter table History add constraint fk_History_Stock foreign key (symbol) references Stock(symbol);
+alter table History add constraint fk_History_Stock foreign key (symbol) references Stock(symbol) on delete cascade;
 
 -- create Comment table
 select '----------------------------------------------------------------' as '';
@@ -235,7 +235,7 @@ create table Comment (
 	symbol char(5) not null,
     comment varchar(255) not null,
     primary key (date, symbol),
-    foreign key (symbol) references Stock(symbol)
+    foreign key (symbol) references Stock(symbol) on delete cascade
 );
 
 -- Done

@@ -12,13 +12,13 @@ import java.util.List;
 
 public class Comment {
     public static void addComment(BasicDataSource ds, Console console) {
-        String[] columns = {"symbol", "comment"};
+        String[] columns = {"date","symbol", "comment"};
         String query = Printer.generateInsert(columns, "Comment");
 
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(columns, console);
+            List<String> inputs = Printer.retrieveInputs(Arrays.copyOfRange(columns, 1, columns.length), console);
 
             preparedStmt.setDate(1, new Date(System.currentTimeMillis())); //change to get current dateTime
             preparedStmt.setString(2, inputs.get(0));

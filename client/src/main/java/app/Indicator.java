@@ -32,7 +32,7 @@ public class Indicator {
             if(io.sector != null)
                 if(io.symbol != null || io.year != null)
                     sb.append(" and ");
-                sb.append(" where sector like ?");
+                sb.append(" sector like ?");
 
             sb.append(";");
             PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());
@@ -85,20 +85,22 @@ public class Indicator {
     }
 
     public static void deleteIndicator(String[] options, BasicDataSource ds) {
-        StringBuilder sb = new StringBuilder("delete from Indicator");
+        StringBuilder sb = new StringBuilder("delete from Indicator where symbol = ?");
         IndicatorOptions io = new IndicatorOptions();
         JCommander.newBuilder()
                 .addObject(io)
                 .build()
                 .parse(options);
+        if(io.symbol == null) {
+            System.err.println("Please input a symbol to delete with the -s option");
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();
 
-            if(io.symbol != null)
-                sb.append(" where symbol = ?");
             if(io.year != null)
-                sb.append(" where year = ?");
+                sb.append(" and year = ?");
 
             sb.append(";");
             PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());

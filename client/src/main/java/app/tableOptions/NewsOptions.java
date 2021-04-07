@@ -20,4 +20,7 @@ public class NewsOptions {
 
     @Parameter(names = {"-r","-range"}, arity=2, description = "A date range to check the particular stock articles")
     public List<String> dateRange = null;
+
+    @Parameter(names= {"-sec", "-sector"}, description = "The sector associated with the article")
+    public String sector = null;
 }

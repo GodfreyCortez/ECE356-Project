@@ -1,12 +1,11 @@
 package app;
 
-import app.tableOptions.HistoryOptions;
+import app.tableOptions.NewsOptions;
 import com.beust.jcommander.JCommander;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class News {
@@ -33,7 +32,7 @@ public class News {
     }
 
     public static void getNews(String[] options, BasicDataSource ds) {
-        StringBuilder sb = new StringBuilder("select * from News where symbol = ? ");
+        StringBuilder sb = new StringBuilder("select * from News as n");
         NewsOptions no = new NewsOptions();
         JCommander.newBuilder()
                 .addObject(no)
@@ -46,43 +45,77 @@ public class News {
             Date startDate = null;
             Date endDate = null;
             String publisher = null;
+            String sector = null;
 
-            if(no.symbol == null) {
-                System.err.println("Symbol to describe is missing, please add it with option -s");
-                conn.close();
-                return;
+            if(no.sector != null) {
+                sector = no.sector;
+                sb.setLength(0);
+                sb.append("select n.*,s.sector from News as n inner join Stock as s using (symbol) ");
             }
 
-            if (no.publisher != null) {
+            if(no.symbol != null || no.publisher != null || no.date != null || no.dateRange != null || no.sector != null)
+                sb.append(" where ");
+
+            boolean otherConditions = false;
+            if(no.symbol != null) {
+                sb.append(" symbol = ? ");
+                otherConditions = true;
+            }
+
+            if(no.publisher != null) {
                 publisher = no.publisher;
-                sb.append("and publisher = ?");
+                if(otherConditions)
+                    sb.append(" and ");
+                sb.append(" publisher like ? ");
+                otherConditions = true;
             }
 
-            if (no.dateRange != null) {
+            if(no.dateRange != null) {
+                if(otherConditions)
+                    sb.append(" and ");
                 startDate = Date.valueOf(no.dateRange.get(0));
                 endDate = Date.valueOf(no.dateRange.get(1));
                 sb.append("and date >= ? and date <= ?");
-            } else if (no.date != null) {
+                otherConditions = true;
+            } else if(no.date != null) {
                 date = Date.valueOf(no.date);
-                sb.append("and date = ?");
+                if(otherConditions)
+                    sb.append(" and ");
+                sb.append(" date = ? ");
+                otherConditions = true;
+            }
+
+            if(no.sector != null) {
+                if(otherConditions)
+                    sb.append(" and ");
+                sb.append(" sector = ? ");
             }
 
             sb.append(";");
             PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());
-            preparedStmt.setString(1, no.symbol);
+            int parameterCount = 0;
+            if(no.symbol != null) {
+                parameterCount++;
+                preparedStmt.setString(parameterCount, no.symbol);
+            }
+            if(no.publisher != null) {
+                parameterCount++;
+                preparedStmt.setString(parameterCount, publisher);
+            }
 
-            if (no.publisher != null)&&(no.dateRange != null) {
-                preparedStmt.setString(2, publisher);
-                preparedStmt.setDate(3, startDate);
-                preparedStmt.setDate(4, endDate);
-            } else if (no.publisher != null)&&(no.date != null) {
-                preparedStmt.setString(2, publisher);
-                preparedStmt.setDate(3, date);
-            } else if (no.publisher == null)&&(no.dateRange != null) {
-                preparedStmt.setDate(2, startDate);
-                preparedStmt.setDate(3, endDate);
-            } else if (no.publisher == null)&&(no.date != null) {
-                preparedStmt.setDate(2, date);
+            if(no.dateRange != null) {
+                parameterCount++;
+                preparedStmt.setDate(parameterCount, startDate);
+                parameterCount++;
+                preparedStmt.setDate(parameterCount, endDate);
+            } else if(no.date != null) {
+                parameterCount++;
+                preparedStmt.setDate(parameterCount, date);
+            }
+
+            if(sector != null) {
+                parameterCount++;
+                preparedStmt.setString(parameterCount, sector);
             }
 
             ResultSet rs = preparedStmt.executeQuery();

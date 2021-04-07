@@ -36,6 +36,7 @@ public class Terminal {
                     break;
                 case "news":
                     //get news
+                    News.getNews(options, this.ds);
                     break;
                 case "info":
                     //get history
@@ -43,6 +44,7 @@ public class Terminal {
                     break;
                 case "comment":
                     //get comment
+                    Comment.getComments(options, this.ds);
                     break;
                 case "sector":
                     //get sector
@@ -64,12 +66,14 @@ public class Terminal {
                             break;
                         case "news":
                             //add news
+                            News.addNews(this.ds, console);
                             break;
                         case "history":
                             History.addHistory(this.ds, console);
                             break;
                         case "comment":
                             //add comment
+                            Comment.addComment(this.ds, console);
                             break;
                         default:
                             //invalid option entered
@@ -81,17 +85,18 @@ public class Terminal {
                     switch(commandList[1]){
                         case "stock":
                             //delete stock
-                            Stock.delete(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
+                            Stock.delete(Arrays.copyOfRange(commandList, 2, commandList.length), this.ds);
                             break;
                         case "indicator":
                             //delete indicator
-                            Indicator.deleteIndicator(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
+                            Indicator.deleteIndicator(Arrays.copyOfRange(commandList, 2, commandList.length), this.ds);
                             break;
                         case "history":
-                            History.deleteHistory(Arrays.copyOfRange(commandList, 2, commandList.length), ds);
+                            History.deleteHistory(Arrays.copyOfRange(commandList, 2, commandList.length), this.ds);
                             break;
                         case "comment":
                             //delete comment
+                            Comment.deleteComment(Arrays.copyOfRange(commandList, 2, commandList.length), this.ds);
                             break;
                         default:
                             //invalid option entered

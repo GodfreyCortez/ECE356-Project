@@ -21,7 +21,7 @@ public class Comment {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             List<String> inputs = Printer.retrieveInputs(Arrays.copyOfRange(columns, 1, columns.length), console);
 
-            preparedStmt.setDate(1, new Date(System.currentTimeMillis())); //change to get current dateTime
+            preparedStmt.setTimestamp(1,new Timestamp(new java.util.Date().getTime())); //change to get current dateTime
             preparedStmt.setString(2, inputs.get(0));
             preparedStmt.setString(3, inputs.get(1));
 

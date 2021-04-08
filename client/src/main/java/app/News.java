@@ -12,15 +12,15 @@ public class News {
     public static void addNews(BasicDataSource ds, Console console) {
         String[] columns = {"date", "headline", "symbol", "publisher", "url"};
         String query = Printer.generateInsert(columns, "News");
-
+        List<String> inputs = Printer.retrieveInputs(columns, console);
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(columns, console);
+
 
             preparedStmt.setDate(1, Date.valueOf(inputs.get(0)));
-            for(int i = 1; i < 6; i++) {  
-                preparedStmt.setString(i+1, inputs.get(i));
+            for(int i = 2; i < 6; i++) {
+                preparedStmt.setString(i, inputs.get(i - 1));
             }
 
             preparedStmt.execute();

@@ -62,8 +62,6 @@ public class Printer {
                 cols.clear();
             }
 
-            at.getContext().setWidth(100);
-
             System.out.println(at.render());
         } catch (SQLException e) {
             System.err.println("Unable to print results!");

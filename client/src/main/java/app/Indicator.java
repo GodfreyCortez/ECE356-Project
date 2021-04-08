@@ -66,11 +66,11 @@ public class Indicator {
     public static void addIndicator(BasicDataSource ds, Console console) {
         String[] columns = { "year", "symbol", "eps", "revenue", "costOfRevenue", "grossProfit", "peRatio", "debtRatio", "dividendYield", "dividendPayoutRatio", "pbValueRatio", "pegRatio", "epsGrowth", "sector", "priceVar" };
         String query = Printer.generateInsert(columns, "Indicator");
-
+        List<String> inputs = Printer.retrieveInputs(columns, console);
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(columns, console);
+
 
             preparedStmt.setInt(1, Integer.parseInt(inputs.get(0)));
             preparedStmt.setString(2, inputs.get(1));

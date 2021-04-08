@@ -13,11 +13,11 @@ public class History {
     public static void addHistory(BasicDataSource ds, Console console) {
         String[] columns = {"date", "symbol", "open", "high", "low", "close", "adjClose", "volume" };
         String query = Printer.generateInsert(columns, "History");
-
+        List<String> inputs = Printer.retrieveInputs(columns, console);
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(columns, console);
+
 
             preparedStmt.setDate(1, Date.valueOf(inputs.get(0)));
             preparedStmt.setString(2, inputs.get(1));

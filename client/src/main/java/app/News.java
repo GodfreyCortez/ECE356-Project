@@ -75,7 +75,7 @@ public class News {
                     sb.append(" and ");
                 startDate = Date.valueOf(no.dateRange.get(0));
                 endDate = Date.valueOf(no.dateRange.get(1));
-                sb.append("and date >= ? and date <= ?");
+                sb.append(" date >= ? and date <= ? ");
                 otherConditions = true;
             } else if(no.date != null) {
                 date = Date.valueOf(no.date);

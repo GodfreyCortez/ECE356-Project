@@ -15,11 +15,11 @@ public class Comment {
     public static void addComment(BasicDataSource ds, Console console) {
         String[] columns = {"date","symbol", "comment"};
         String query = Printer.generateInsert(columns, "Comment");
-
+        List<String> inputs = Printer.retrieveInputs(Arrays.copyOfRange(columns, 1, columns.length), console);
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(Arrays.copyOfRange(columns, 1, columns.length), console);
+
 
             preparedStmt.setTimestamp(1,new Timestamp(new java.util.Date().getTime())); //change to get current dateTime
             preparedStmt.setString(2, inputs.get(0));

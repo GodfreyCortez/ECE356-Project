@@ -24,7 +24,7 @@ public class Stock {
             Connection conn = ds.getConnection();
             String sector = null;
             if(so.sector != null) {
-                sb.append(" where sector like ?");
+                sb.append(" where sector like ? ");
                 sector = String.join(" ", so.sector);
             }
             sb.append(";");
@@ -45,11 +45,11 @@ public class Stock {
     public static void addStock(BasicDataSource ds, Console console) {
         String[] columns = { "symbol", "sector" };
         String query = Printer.generateInsert(columns, "Stock");
-
+        List<String> inputs = Printer.retrieveInputs(columns, console);
         try {
             Connection conn = ds.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            List<String> inputs = Printer.retrieveInputs(columns, console);
+
 
             preparedStatement.setString(1, inputs.get(0));
             preparedStatement.setString(2, inputs.get(1));

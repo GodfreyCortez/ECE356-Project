@@ -55,10 +55,10 @@ public class Comment {
             if (co.dateRange != null) {
                 startDate = Date.valueOf(co.dateRange.get(0));
                 endDate = Date.valueOf(co.dateRange.get(1));
-                sb.append("and convert(date,getdate()) >= ? and convert(date,getdate()) <= ?");
+                sb.append("and convert(date, date) >= ? and convert(date, date) <= ?");
             } else if (co.date != null) {
                 date = Date.valueOf(co.date);
-                sb.append("and convert(date,getdate()) = ?");
+                sb.append("and convert(date, date) = ?");
             }
 
             sb.append(";");
@@ -97,21 +97,21 @@ public class Comment {
                 sb.append("where ");
                 
                 if (co.symbol != null && co.dateRange != null) {
-                    sb.append("symbol = ? ");
+                    sb.append(" symbol = ? ");
                     startDate = Date.valueOf(co.dateRange.get(0));
                     endDate = Date.valueOf(co.dateRange.get(1));
-                    sb.append("and convert(date,getdate()) >= ? and convert(date,getdate()) <= ?");
+                    sb.append(" and convert(date,date) >= ? and convert(date,date) <= ? ");
                 } else if (co.symbol != null && co.date != null){
-                    sb.append("symbol = ? ");
+                    sb.append(" symbol = ? ");
                     date = Date.valueOf(co.date);
-                    sb.append("and convert(date,getdate()) = ?");
+                    sb.append(" and convert(date,date) = ? ");
                 } else if (co.symbol == null && co.dateRange != null){
                     startDate = Date.valueOf(co.dateRange.get(0));
                     endDate = Date.valueOf(co.dateRange.get(1));
-                    sb.append("convert(date,getdate()) >= ? and convert(date,getdate()) <= ?");
+                    sb.append(" convert(date,date) >= ? and convert(date,date) <= ? ");
                 } else if (co.symbol == null && co.date != null){
                     date = Date.valueOf(co.date);
-                    sb.append("convert(date,getdate()) = ?");
+                    sb.append(" convert(date,date) = ? ");
                 }
             }
 

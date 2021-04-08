@@ -74,8 +74,8 @@ public class Indicator {
 
             preparedStmt.setInt(1, Integer.parseInt(inputs.get(0)));
             preparedStmt.setString(2, inputs.get(1));
-            for(int i = 2; i < 12; i++) {
-                preparedStmt.setDouble(i+1, Double.parseDouble(inputs.get(i)));
+            for(int i = 3; i < 14; i++) {
+                preparedStmt.setDouble(i, Double.parseDouble(inputs.get(i - 1)));
             }
             preparedStmt.setString(14, inputs.get(13));
             preparedStmt.setDouble(15, Double.parseDouble(inputs.get(14)));

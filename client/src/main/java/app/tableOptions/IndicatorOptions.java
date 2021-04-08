@@ -11,6 +11,6 @@ public class IndicatorOptions {
     @Parameter(names = { "-y", "-year" }, description = "A singular year to be checked")
     public Integer year = null;
 
-    @Parameter(names = { "-sec", "-sector" }, description = "The sector of the stock")
-    public String sector = null;
+    @Parameter(names = { "-sec", "-sector" }, variableArity = true, description = "The sector of the stock")
+    public List<String> sector = null;
 }

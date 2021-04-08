@@ -12,8 +12,8 @@ public class NewsOptions {
     @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
     public String symbol = null;
 
-    @Parameter(names = { "-p", "-publisher" }, description = "The publisher of the article")
-    public String publisher = null;
+    @Parameter(names = { "-p", "-publisher" }, variableArity = true, description = "The publisher of the article")
+    public List<String> publisher = null;
 
     @Parameter(names = { "-d", "-dates" }, description = "A singular day to be checked")
     public String date = null;
@@ -21,6 +21,6 @@ public class NewsOptions {
     @Parameter(names = {"-r","-range"}, arity=2, description = "A date range to check the particular stock articles")
     public List<String> dateRange = null;
 
-    @Parameter(names= {"-sec", "-sector"}, description = "The sector associated with the article")
-    public String sector = null;
+    @Parameter(names= {"-sec", "-sector"}, variableArity = true, description = "The sector associated with the article")
+    public List<String> sector = null;
 }

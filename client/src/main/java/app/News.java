@@ -48,7 +48,7 @@ public class News {
             String sector = null;
 
             if(no.sector != null) {
-                sector = no.sector;
+                sector = String.join(" ", no.sector);
                 sb.setLength(0);
                 sb.append("select n.*,s.sector from News as n inner join Stock as s using (symbol) ");
             }
@@ -63,7 +63,7 @@ public class News {
             }
 
             if(no.publisher != null) {
-                publisher = no.publisher;
+                publisher = String.join(" ", no.publisher);
                 if(otherConditions)
                     sb.append(" and ");
                 sb.append(" publisher like ? ");

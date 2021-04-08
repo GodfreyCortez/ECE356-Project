@@ -51,7 +51,7 @@ public class Indicator {
             }
             if(io.sector != null) {
                 parameterCount++;
-                preparedStmt.setString(parameterCount, io.sector);
+                preparedStmt.setString(parameterCount, String.join(" ", io.sector));
             }
 
             ResultSet rs = preparedStmt.executeQuery();

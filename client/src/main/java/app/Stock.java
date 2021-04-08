@@ -25,7 +25,7 @@ public class Stock {
             String sector = null;
             if(so.sector != null) {
                 sb.append(" where sector like ?");
-                sector = so.sector;
+                sector = String.join(" ", so.sector);
             }
             sb.append(";");
 

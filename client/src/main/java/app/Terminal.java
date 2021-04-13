@@ -17,7 +17,7 @@ public class Terminal {
     public void start() {
         console.printf("Welcome to the stocks app! For more information type 'manual', to quit type 'quit'\r\n");
         while(true) {
-            String input = console.readLine("stocks>").toLowerCase();
+            String input = console.readLine("stocks>");
             String[] commandList = input.split(" ");
 
             String[] options = commandList.length < 2 ? new String[0] : Arrays.copyOfRange(commandList, 1, commandList.length);

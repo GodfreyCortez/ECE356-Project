@@ -2,7 +2,6 @@ package app;
 
 import app.tableOptions.CommentOptions;
 import app.tableOptions.HistoryOptions;
-import com.beust.jcommander.JCommander;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -35,10 +34,9 @@ public class Comment {
     public static void deleteComment(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("delete from Comment where symbol = ?");
         CommentOptions co = new CommentOptions();
-        JCommander.newBuilder()
-                .addObject(co)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(co, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();
@@ -82,10 +80,9 @@ public class Comment {
     public static void getComments(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from Comment ");
         HistoryOptions co = new HistoryOptions();
-        JCommander.newBuilder()
-                .addObject(co)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(co, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();

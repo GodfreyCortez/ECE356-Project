@@ -2,6 +2,7 @@ package app;
 
 import app.tableOptions.HistoryOptions;
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -99,10 +100,15 @@ public class History {
     public static void dayQuery(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from History where symbol = ? ");
         HistoryOptions ho = new HistoryOptions();
-        JCommander.newBuilder()
-                .addObject(ho)
-                .build()
-                .parse(options);
+        try {
+            JCommander.newBuilder()
+                    .addObject(ho)
+                    .build()
+                    .parse(options);
+        } catch (ParameterException e) {
+            e.usage();
+            return;
+        }
 
         if(ho.symbol == null) {
             System.out.println("Please input a symbol with the -s option");

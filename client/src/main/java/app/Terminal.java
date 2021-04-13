@@ -54,6 +54,14 @@ public class Terminal {
                     //get publisher
                     Publisher.getPublishers(this.ds);
                     break;
+                case "sql":
+                    //execute sql query
+                    if(options.length < 1) {
+                        console.printf("Invalid sql was inputted\r\n");
+                        break;
+                    }
+                    Common.query(this.ds,String.join(" ", options));
+                    break;
                 case "add": // if first string is add, we need to check what the second string is
                     if(commandList.length < 2) {
                         console.printf("Invalid option entered. Please enter valid option from manual!\r\n");

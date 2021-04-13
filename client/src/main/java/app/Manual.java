@@ -49,6 +49,10 @@ public class Manual {
         return  header("Publisher:") +
                 command("publisher");
     }
+    private static String sql() {
+        return header("SQL:") +
+               command("sql <sql query>");
+    }
     public static void printManual(Console console) {
         String str = "Program Commands:\r\n" +
                 stock() +
@@ -64,6 +68,8 @@ public class Manual {
                 history() +
                 "\n" +
                 comment() +
+                "\n" +
+                sql() +
                 "\n";
         console.printf(str);
     }

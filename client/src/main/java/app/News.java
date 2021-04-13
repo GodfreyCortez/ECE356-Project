@@ -1,7 +1,6 @@
 package app;
 
 import app.tableOptions.NewsOptions;
-import com.beust.jcommander.JCommander;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -34,10 +33,9 @@ public class News {
     public static void getNews(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from News as n");
         NewsOptions no = new NewsOptions();
-        JCommander.newBuilder()
-                .addObject(no)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(no, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();

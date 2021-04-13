@@ -5,7 +5,7 @@ import com.beust.jcommander.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentOptions {
+public class CommentOptions extends Options{
     @Parameter
     private List<String> parameters = new ArrayList<>();
 

@@ -5,9 +5,9 @@ import com.beust.jcommander.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryOptions {
+public class HistoryOptions extends Options{
 
-    @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
+    @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock", required = true)
     public String symbol = null;
 
     @Parameter(names = { "-d", "-dates" }, description = "A singular day to be checked")

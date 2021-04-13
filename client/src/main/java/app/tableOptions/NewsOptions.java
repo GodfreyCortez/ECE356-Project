@@ -5,7 +5,7 @@ import com.beust.jcommander.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsOptions {
+public class NewsOptions extends Options{
     @Parameter
     private List<String> parameters = new ArrayList<>();
 

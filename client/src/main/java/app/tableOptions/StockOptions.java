@@ -4,7 +4,7 @@ import com.beust.jcommander.Parameter;
 
 import java.util.List;
 
-public class StockOptions {
+public class StockOptions extends Options{
 
     @Parameter(names = { "-sec", "-sector"}, variableArity = true, description="The sector for the stocks to look at")
     public List<String> sector = null;

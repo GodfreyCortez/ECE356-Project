@@ -4,7 +4,7 @@ import com.beust.jcommander.Parameter;
 
 import java.util.List;
 
-public class IndicatorOptions {
+public class IndicatorOptions extends Options{
     @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
     public String symbol = null;
 

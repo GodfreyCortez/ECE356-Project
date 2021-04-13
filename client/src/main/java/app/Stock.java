@@ -1,7 +1,6 @@
 package app;
 
 import app.tableOptions.StockOptions;
-import com.beust.jcommander.JCommander;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -15,10 +14,9 @@ public class Stock {
     public static void query(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from Stock");
         StockOptions so = new StockOptions();
-        JCommander.newBuilder()
-                .addObject(so)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(so, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();
@@ -65,10 +63,9 @@ public class Stock {
         // Need to delete all from all other tables which foreign key to this one
         StringBuilder sb = new StringBuilder("delete from Stock where symbol = ?;");
         StockOptions so = new StockOptions();
-        JCommander.newBuilder()
-                .addObject(so)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(so, options)) {
+            return;
+        }
 
         if(so.symbol == null) {
             System.err.println("Please input a symbol to delete with option -s");

@@ -1,7 +1,6 @@
 package app;
 
 import app.tableOptions.IndicatorOptions;
-import com.beust.jcommander.JCommander;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -12,10 +11,9 @@ public class Indicator {
     public static void getIndicators(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from Indicator");
         IndicatorOptions io = new IndicatorOptions();
-        JCommander.newBuilder()
-                .addObject(io)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(io, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();
@@ -90,10 +88,9 @@ public class Indicator {
     public static void deleteIndicator(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("delete from Indicator where symbol = ?");
         IndicatorOptions io = new IndicatorOptions();
-        JCommander.newBuilder()
-                .addObject(io)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(io, options)) {
+            return;
+        }
         if(io.symbol == null) {
             System.err.println("Please input a symbol to delete with the -s option");
             return;

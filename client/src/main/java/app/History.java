@@ -1,8 +1,6 @@
 package app;
 
 import app.tableOptions.HistoryOptions;
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.ParameterException;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -38,10 +36,9 @@ public class History {
     public static void deleteHistory(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("delete from History where symbol = ?");
         HistoryOptions ho = new HistoryOptions();
-        JCommander.newBuilder()
-                .addObject(ho)
-                .build()
-                .parse(options);
+        if(!Common.buildOptions(ho, options)) {
+            return;
+        }
 
         try {
             Connection conn = ds.getConnection();
@@ -100,13 +97,7 @@ public class History {
     public static void dayQuery(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from History where symbol = ? ");
         HistoryOptions ho = new HistoryOptions();
-        try {
-            JCommander.newBuilder()
-                    .addObject(ho)
-                    .build()
-                    .parse(options);
-        } catch (ParameterException e) {
-            e.usage();
+        if(!Common.buildOptions(ho, options)) {
             return;
         }
 

@@ -5,10 +5,7 @@ import com.beust.jcommander.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentOptions extends Options{
-    @Parameter
-    private List<String> parameters = new ArrayList<>();
-
+public class CommentOptions extends Options {
     @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
     public String symbol = null;
 

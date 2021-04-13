@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsOptions extends Options{
-    @Parameter
-    private List<String> parameters = new ArrayList<>();
-
     @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
     public String symbol = null;
 

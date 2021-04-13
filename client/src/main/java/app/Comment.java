@@ -1,7 +1,6 @@
 package app;
 
 import app.tableOptions.CommentOptions;
-import app.tableOptions.HistoryOptions;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.Console;
@@ -79,7 +78,7 @@ public class Comment {
 
     public static void getComments(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from Comment ");
-        HistoryOptions co = new HistoryOptions();
+        CommentOptions co = new CommentOptions();
         if(!Common.buildOptions(co, options)) {
             return;
         }

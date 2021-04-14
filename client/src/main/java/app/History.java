@@ -79,6 +79,15 @@ public class History {
         }
     }
 
+    public static void getAll(BasicDataSource ds) {
+        String query = "select * from History;";
+        Common.query(ds, query);
+    }
+
+    public static void get52WeekRange(String symbol, BasicDataSource ds) {
+        //String query
+    }
+
     public static void dayQuery(String stockSymbol, BasicDataSource ds) {
         String query = "select * from History where symbol = ? order by date desc limit 1;";
 
@@ -103,6 +112,11 @@ public class History {
 
         if(ho.symbol == null) {
             System.out.println("Please input a symbol with the -s option");
+            return;
+        }
+
+        if(ho.all) {
+            getAll(ds);
             return;
         }
 

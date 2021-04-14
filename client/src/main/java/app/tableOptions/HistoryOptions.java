@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HistoryOptions extends Options{
 
-    @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock", required = true)
+    @Parameter(names = { "-s", "-symbol" }, description = "The symbol for the stock")
     public String symbol = null;
 
     @Parameter(names = { "-d", "-dates" }, description = "A singular day to be checked")
@@ -18,4 +18,7 @@ public class HistoryOptions extends Options{
 
     @Parameter(names = {"-a"}, description = "Get all the stock information")
     public boolean all = false;
+
+    @Parameter(names = {"-52"}, description = "Get the 52 week high and low for a particular stock")
+    public boolean weekRange = false;
 }

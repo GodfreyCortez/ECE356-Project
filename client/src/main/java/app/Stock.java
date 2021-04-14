@@ -73,9 +73,6 @@ public class Stock {
         }
 
 
-        /***** DELETE FROM ALL OTHER TABLES HERE ****/
-
-
         try {
             Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(sb.toString());

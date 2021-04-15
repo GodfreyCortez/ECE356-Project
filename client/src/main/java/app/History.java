@@ -152,15 +152,14 @@ public class History {
             return;
         }
 
-
-        if(ho.all) {
+        if(ho.weekRange) {
+            get52WeekRange(ho, ds);
+            return;
+        } else if(ho.all) {
             getAll(ds);
             return;
         } else if(!ho.all && ho.dateRange == null && ho.date == null) {
             dayQuery(ho.symbol, ds);
-            return;
-        } else if(ho.weekRange) {
-            get52WeekRange(ho, ds);
             return;
         }
 

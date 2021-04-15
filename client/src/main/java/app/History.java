@@ -100,7 +100,7 @@ public class History {
         } else {
             sb.append("with most_recent_date as ( ")
             .append(" select max(date) as date from History where symbol = ? ")
-            .append(" ) select min(low) as week_52_low, max(high) week_52_high from History where ")
+            .append(" ) select min(low) as week_52_low, max(high) as week_52_high from History where ")
             .append(" symbol = ? and ")
             .append(" date >= (select DATE_SUB(date, INTERVAL 52 WEEK) from most_recent_date and ")
             .append(" date <= (select date from most_recent_date);");

@@ -21,4 +21,7 @@ public class HistoryOptions extends Options{
 
     @Parameter(names = {"-52"}, description = "Get the 52 week high and low for a particular stock")
     public boolean weekRange = false;
+
+    @Parameter(names ={"-g", "-general"}, description = "Get the general information about a stock")
+    public boolean general = false;
 }

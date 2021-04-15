@@ -125,6 +125,30 @@ public class History {
         }
     }
 
+    public static void getGeneral(HistoryOptions ho, BasicDataSource ds) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("with most_recent_date as ( ")
+        .append(" select max(date) as date from History where symbol = ? ")
+        .append(" ) select min(low) as week_52_low, max(high) as week_52_high, avg(volume) as average_volume from History where ")
+        .append(" symbol = ? and ")
+        .append(" date >= (select DATE_SUB(date, INTERVAL 52 WEEK) from most_recent_date) and ")
+        .append(" date <= (select date from most_recent_date);");
+
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sb.toString());
+            ps.setString(1, ho.symbol);
+            ps.setString(2, ho.symbol);
+            Printer.printQuery(ps.executeQuery());
+            conn.close();
+
+        } catch (SQLException e) {
+            Printer.printQueryError(e);
+        }
+
+        dayQuery(ho.symbol, ds);
+    }
+
     public static void dayQuery(String stockSymbol, BasicDataSource ds) {
         String query = "select * from History where symbol = ? order by date desc limit 1;";
 
@@ -152,7 +176,10 @@ public class History {
             return;
         }
 
-        if(ho.weekRange) {
+        if(ho.general) {
+            getGeneral(ho, ds);
+            return;
+        } else if(ho.weekRange) {
             get52WeekRange(ho, ds);
             return;
         } else if(ho.all) {
@@ -163,17 +190,12 @@ public class History {
             return;
         }
 
+
         try {
             Connection conn = ds.getConnection();
             Date date = null;
             Date startDate = null;
             Date endDate = null;
-
-            if(ho.symbol == null) {
-                System.err.println("Symbol to describe is missing, please add it with option -s");
-                conn.close();
-                return;
-            }
 
             if (ho.dateRange != null) {
                 startDate = Date.valueOf(ho.dateRange.get(0));

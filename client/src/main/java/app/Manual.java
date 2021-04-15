@@ -31,7 +31,8 @@ public class Manual {
     }
     private static String history() {
         return  header("History:") +
-                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>][-52]") +
+                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>][-52][-g]") +
+                option("-g option will give general information about a stock (avg volume in past year, 52 week high and low, latest price info available)") +
                 option("-52 allows you to retrieve the 52 week high and low of the most recent date, specify an end date to get the 52 week range for that") +
                 command("add history") +
                 command("delete history <-s <stock>>[-d]");

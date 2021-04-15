@@ -94,7 +94,7 @@ public class History {
 
         if(ho.date != null) {
             sb.append("select min(low) as week_52_low, max(high) week_52_high from History where ")
-            .append(" symbol = ? ")
+            .append(" symbol = ? and ")
             .append(" date >= DATE_SUB(?, INTERVAL 52 WEEK) and ")
             .append(" date <= ?;");
         } else {

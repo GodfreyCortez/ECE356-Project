@@ -8,10 +8,53 @@ import java.sql.*;
 import java.util.List;
 
 public class Indicator {
+    public static void getStocksToBuy(BasicDataSource ds, int year) {
+        String query = "select * from Indicator where priceVar > 0 and year = ?;";
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, year);
+            ResultSet rs = preparedStmt.executeQuery();
+            Printer.printQuery(rs);
+            conn.close();
+        } catch (SQLException e) {
+            Printer.printQueryError();
+            Printer.printSQLException(e);
+        }
+    }
+    public static void getStocksToNotBuy(BasicDataSource ds, int year) {
+        String query = "select * from Indicator where priceVar < 0 and year = ?;";
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, year);
+            ResultSet rs = preparedStmt.executeQuery();
+            Printer.printQuery(rs);
+            conn.close();
+        } catch (SQLException e) {
+            Printer.printQueryError();
+            Printer.printSQLException(e);
+        }
+    }
     public static void getIndicators(String[] options, BasicDataSource ds) {
         StringBuilder sb = new StringBuilder("select * from Indicator");
         IndicatorOptions io = new IndicatorOptions();
         if(!Common.buildOptions(io, options)) {
+            return;
+        }
+
+        //stocks to buy or not buy in a specific year
+        if(io.buyStock && io.notBuyStock) {
+            System.out.println("Please enter only one of the options: -buy or -notBuy");
+            return;
+        } else if((io.buyStock || io.notBuyStock) && io.year == null) {
+            System.out.println("Please specify a year using the -y option. Ex: -buy -y <year>");
+            return;
+        } else if(io.buyStock) {
+            getStocksToBuy(ds, io.year);
+            return;
+        } else if(io.notBuyStock) {
+            getStocksToNotBuy(ds, io.year);
             return;
         }
 

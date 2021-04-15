@@ -13,4 +13,11 @@ public class IndicatorOptions extends Options{
 
     @Parameter(names = { "-sec", "-sector" }, variableArity = true, description = "The sector of the stock")
     public List<String> sector = null;
+
+    @Parameter(names = { "-buy", "-buyStock" }, description = "Lists out stocks to buy")
+    public Boolean buyStock = false;
+
+    @Parameter(names = { "-notBuy", "-notBuyStock" }, description = "Lists out stocks to not buy")
+    public Boolean notBuyStock = false;
+
 }

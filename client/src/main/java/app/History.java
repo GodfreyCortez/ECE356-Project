@@ -84,8 +84,45 @@ public class History {
         Common.query(ds, query);
     }
 
-    public static void get52WeekRange(String symbol, BasicDataSource ds) {
-        //String query
+    public static void get52WeekRange(HistoryOptions ho, BasicDataSource ds) {
+        if(ho.symbol == null) {
+            System.out.println("Please input a symbol with the -s option");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if(ho.date != null) {
+            sb.append("select min(low) as week_52_low, max(high) week_52_high from History where ")
+            .append(" symbol = ? ")
+            .append(" date >= DATE_SUB(?, INTERVAL 52 WEEK) and ")
+            .append(" date <= ?;");
+        } else {
+            sb.append("with most_recent_date as ( ")
+            .append(" select max(date) as date from History where symbol = ? ")
+            .append(" ) select min(low) as week_52_low, max(high) as week_52_high from History where ")
+            .append(" symbol = ? and ")
+            .append(" date >= (select DATE_SUB(date, INTERVAL 52 WEEK) from most_recent_date) and ")
+            .append(" date <= (select date from most_recent_date);");
+        }
+
+
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sb.toString());
+            if(ho.date != null) {
+                ps.setString(1, ho.symbol);
+                ps.setDate(2, Date.valueOf(ho.date));
+                ps.setDate(3, Date.valueOf(ho.date));
+            } else {
+                ps.setString(1, ho.symbol);
+                ps.setString(2, ho.symbol);
+            }
+            Printer.printQuery(ps.executeQuery());
+            conn.close();
+        } catch (SQLException e) {
+            Printer.printQueryError(e);
+        }
     }
 
     public static void dayQuery(String stockSymbol, BasicDataSource ds) {
@@ -115,12 +152,13 @@ public class History {
             return;
         }
 
-        if(ho.all) {
+        if(ho.weekRange) {
+            get52WeekRange(ho, ds);
+            return;
+        } else if(ho.all) {
             getAll(ds);
             return;
-        }
-
-        if(!ho.all && ho.dateRange == null && ho.date == null) {
+        } else if(!ho.all && ho.dateRange == null && ho.date == null) {
             dayQuery(ho.symbol, ds);
             return;
         }

@@ -24,4 +24,16 @@ public class HistoryOptions extends Options{
 
     @Parameter(names ={"-g", "-general"}, description = "Get the general information about a stock")
     public boolean general = false;
+
+    @Parameter(names = {"-exp"}, description = "Get the top 10 most expensive stocks in a given year")
+    public boolean topExpensive = false;
+
+    @Parameter(names = {"-cheap"}, description = "Get the top 10 cheapest stocks in a given year")
+    public boolean topCheap = false;
+
+    @Parameter(names = {"-y", "-year"}, description = "A year to be used with -exp or -cheap")
+    public Integer year = null;
+
+    @Parameter(names = {"-sec", "-sector"}, description = "A sector to be used with -exp or -cheap")
+    public String sector = null;
 }

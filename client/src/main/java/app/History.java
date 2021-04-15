@@ -149,6 +149,56 @@ public class History {
         dayQuery(ho.symbol, ds);
     }
 
+    public static void getTop10ExpensiveStock(HistoryOptions ho, BasicDataSource ds) {
+        if(ho.year == null) {
+            System.out.println("Please input a year with the -y option");
+            return;
+        }
+        if (ho.sector == null) {
+            System.out.println("Please input a sector with the -sec option");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("select symbol, max(high) as mostExpensive from History inner join Stock using (symbol) ");
+        sb.append("where year(date) = ? and sector = ? ");
+        sb.append("group by symbol order by max(high) desc limit 10;");
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sb.toString());
+            ps.setInt(1, ho.year);
+            ps.setString(2, ho.sector);
+            Printer.printQuery(ps.executeQuery());
+            conn.close();
+        } catch (SQLException e) {
+            Printer.printQueryError(e);
+        }
+    }
+
+    public static void getTop10CheapestStock(HistoryOptions ho, BasicDataSource ds) {
+        if(ho.year == null) {
+            System.out.println("Please input a year with the -y option");
+            return;
+        }
+        if (ho.sector == null) {
+            System.out.println("Please input a sector with the -sec option");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("select symbol, min(low) as cheapest from History inner join Stock using (symbol) ");
+        sb.append("where year(date) = ? and sector = ? ");
+        sb.append("group by symbol order by min(low) asc limit 10;");
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sb.toString());
+            ps.setInt(1, ho.year);
+            ps.setString(2, ho.sector);
+            Printer.printQuery(ps.executeQuery());
+            conn.close();
+        } catch (SQLException e) {
+            Printer.printQueryError(e);
+        }
+    }
+
     public static void dayQuery(String stockSymbol, BasicDataSource ds) {
         String query = "select * from History where symbol = ? order by date desc limit 1;";
 
@@ -171,12 +221,22 @@ public class History {
             return;
         }
 
+        //needs to be checked first before ho.symbol == null, since this does not need a symbol
+        if(ho.topExpensive) {
+            getTop10ExpensiveStock(ho, ds);
+            return;
+        }else if(ho.topCheap) {
+            getTop10CheapestStock(ho, ds);
+            return;
+        }
+
         if(ho.symbol == null) {
             System.out.println("Please input a symbol with the -s option");
             return;
         }
 
-        if(ho.general) {
+
+        else if(ho.general) {
             getGeneral(ho, ds);
             return;
         } else if(ho.weekRange) {

@@ -31,7 +31,8 @@ public class Manual {
     }
     private static String history() {
         return  header("History:") +
-                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>]") +
+                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>][-52]") +
+                option("-52 allows you to retrieve the 52 week high and low of the most recent date, specify an end date to get the 52 week range for that") +
                 command("add history") +
                 command("delete history <-s <stock>>[-d]");
     }

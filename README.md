@@ -1,8 +1,7 @@
 # ECE356-Project
-This application was developed to work on eceubuntu, please use it there
+This application was developed to work on eceubuntu.
 
-To login on eceubuntu
-
+To use the application:
 ```
 cd client;
 mvn clean install package;

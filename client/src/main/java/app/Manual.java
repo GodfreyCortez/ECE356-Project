@@ -16,7 +16,7 @@ public class Manual {
         return  header("Stock:") +
                 command("stock [-sec <sector>]") +
                 command("add stock") +
-                command("delete stock -s <symbol>");
+                command("delete stock -s <stock>");
     }
     private static String indicator() {
         return  header("Indicator:") +
@@ -24,7 +24,7 @@ public class Manual {
                 option("-buy will retrieve a list of stocks that you should buy at the beginning of a given year and sell at the end of the year, specify a year") +
                 option("-notBuy will retrieve a list of stocks that will decrease in value and you should not buy in a given year, specify a year") +
                 command("add indicator") +
-                command("delete indicator [-s <stock>][-y <year>]");
+                command("delete indicator -s <stock> [-y <year>]");
     }
     private static String news() {
         return  header("News:") +
@@ -43,9 +43,9 @@ public class Manual {
     }
     private static String comment() {
         return  header("Comment:") +
-                command("comment [-a][-s][-d]") +
+                command("comment [-s <stock>][-d <date>, -r <start-date> <end-date>]") +
                 command("add comment") +
-                command("delete comment [-s][-d]");
+                command("delete comment -s <stock> [-d <date>, -r <start-date> <end-date>]");
     }
     private static String sector() {
         return  header("Sector:") +

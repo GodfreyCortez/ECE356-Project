@@ -24,7 +24,7 @@ public class Manual {
                 option("-buy will retrieve a list of stocks that you should buy at the beginning of a given year and sell at the end of the year, specify a year") +
                 option("-notBuy will retrieve a list of stocks that will decrease in value and you should not buy in a given year, specify a year") +
                 command("add indicator") +
-                command("delete indicator [-s <stock>][-y <year>]");
+                command("delete indicator -s <stock> [-y <year>]");
     }
     private static String news() {
         return  header("News:") +

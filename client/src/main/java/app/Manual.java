@@ -33,7 +33,7 @@ public class Manual {
     }
     private static String history() {
         return  header("History:") +
-                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>][-52][-g][-exp][-cheap]") +
+                command("info <-s <stock>> [-d <date>, -r <start-date> <end-date>][-52][-g][-exp -sec <sector> -y <year>][-cheap -sec <sector> -y <year>]") +
                 option("-g option will give general information about a stock (avg volume in past year, 52 week high and low, latest price info available)") +
                 option("-52 allows you to retrieve the 52 week high and low of the most recent date, specify an end date to get the 52 week range for that") +
                 option("-exp will retrieve the top 10 most expensive stocks by sector in a given year, specify a year and sector") +

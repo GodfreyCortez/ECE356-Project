@@ -18,4 +18,4 @@ cd server
 # once logged in to the mysql client and switched to a database
 source create_schema.sql
 ```
-![Image of the manual](./main.png "Stocks App")
+![Image of the manual](./terminal.png "Stocks App")

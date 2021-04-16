@@ -16,7 +16,7 @@ public class Manual {
         return  header("Stock:") +
                 command("stock [-sec <sector>]") +
                 command("add stock") +
-                command("delete stock -s <symbol>");
+                command("delete stock -s <stock>");
     }
     private static String indicator() {
         return  header("Indicator:") +
@@ -43,9 +43,9 @@ public class Manual {
     }
     private static String comment() {
         return  header("Comment:") +
-                command("comment [-s <symbol>][-d <date>, -r <start-date> <end-date>]") +
+                command("comment [-s <stock>][-d <date>, -r <start-date> <end-date>]") +
                 command("add comment") +
-                command("delete comment -s <symbol> [-d <date>, -r <start-date> <end-date>]");
+                command("delete comment -s <stock> [-d <date>, -r <start-date> <end-date>]");
     }
     private static String sector() {
         return  header("Sector:") +

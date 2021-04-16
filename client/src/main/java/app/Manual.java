@@ -43,9 +43,9 @@ public class Manual {
     }
     private static String comment() {
         return  header("Comment:") +
-                command("comment [-a][-s][-d]") +
+                command("comment [-s <symbol>][-d <date>, -r <start-date> <end-date>]") +
                 command("add comment") +
-                command("delete comment [-s][-d]");
+                command("delete comment [-s <symbol>][-d <date>, -r <start-date> <end-date>]");
     }
     private static String sector() {
         return  header("Sector:") +

@@ -1,5 +1,5 @@
 # ECE356-Project
-stonks
+This application was developed to work on eceubuntu, please use it there
 
 To login on eceubuntu
 

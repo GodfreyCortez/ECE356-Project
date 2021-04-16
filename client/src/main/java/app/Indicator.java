@@ -37,7 +37,7 @@ public class Indicator {
         }
     }
     public static void getIndicators(String[] options, BasicDataSource ds) {
-        StringBuilder sb = new StringBuilder("select * from Indicator");
+        StringBuilder sb = new StringBuilder("select * from Indicator as n");
         IndicatorOptions io = new IndicatorOptions();
         if(!Common.buildOptions(io, options)) {
             return;
@@ -60,6 +60,12 @@ public class Indicator {
 
         try {
             Connection conn = ds.getConnection();
+            
+             if(io.sector != null) {
+                sector = String.join(" ", io.sector);
+                sb.setLength(0);
+                sb.append("select n.*,s.sector from Indicator as n inner join Stock as s using (symbol) ");
+            }
 
             if(io.symbol != null || io.year != null || io.sector != null)
                 sb.append(" where ");

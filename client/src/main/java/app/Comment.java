@@ -91,8 +91,9 @@ public class Comment {
 
             if (co.symbol != null || co.dateRange != null || co.date != null){
                 sb.append("where ");
-                
-                if (co.symbol != null && co.dateRange != null) {
+                if (co.symbol != null && co.date == null && co.dateRange == null){
+                    sb.append(" symbol = ? ");
+                } else if (co.symbol != null && co.dateRange != null) {
                     sb.append(" symbol = ? ");
                     startDate = Date.valueOf(co.dateRange.get(0));
                     endDate = Date.valueOf(co.dateRange.get(1));
@@ -113,8 +114,9 @@ public class Comment {
 
             sb.append(";");
             PreparedStatement preparedStmt = conn.prepareStatement(sb.toString());
-
-            if (co.symbol != null&&co.dateRange != null) {
+            if (co.symbol != null && co.date == null && co.dateRange == null){
+                preparedStmt.setString(1, co.symbol);
+            } else if (co.symbol != null&&co.dateRange != null) {
                 preparedStmt.setString(1, co.symbol);
                 preparedStmt.setDate(2, startDate);
                 preparedStmt.setDate(3, endDate);

@@ -45,7 +45,7 @@ public class Manual {
         return  header("Comment:") +
                 command("comment [-s <symbol>][-d <date>, -r <start-date> <end-date>]") +
                 command("add comment") +
-                command("delete comment [-s <symbol>][-d <date>, -r <start-date> <end-date>]");
+                command("delete comment -s <symbol> [-d <date>, -r <start-date> <end-date>]");
     }
     private static String sector() {
         return  header("Sector:") +

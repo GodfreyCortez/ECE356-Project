@@ -28,7 +28,7 @@ public class Manual {
     }
     private static String news() {
         return  header("News:") +
-                command("news [-p][-s][-d][-sec]") +
+                command("news [-p][-s][-d <date>, -r <start-date> <end-date>][-sec]") +
                 command("add news");
     }
     private static String history() {

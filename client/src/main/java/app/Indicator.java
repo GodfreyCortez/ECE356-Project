@@ -60,9 +60,7 @@ public class Indicator {
 
         try {
             Connection conn = ds.getConnection();
-            
-             if(io.sector != null) {
-                sector = String.join(" ", io.sector);
+            if(io.sector != null) {
                 sb.setLength(0);
                 sb.append("select n.*,s.sector from Indicator as n inner join Stock as s using (symbol) ");
             }

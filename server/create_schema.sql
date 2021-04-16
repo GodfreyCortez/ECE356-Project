@@ -162,6 +162,8 @@ insert into Stock select distinct symbol, sector from Indicator;
 alter table Stock add constraint fk_Stock_Sector foreign key (sector) references Sector(sector);
 -- add the foreign key (need to do after making sure Stock table has the stock)
 alter table Indicator add constraint fk_Indicator_Stock foreign key (symbol) references Stock(symbol) on delete cascade;
+-- drop the sector column
+alter table Indicator drop column sector;
 
 -- create News table
 select '----------------------------------------------------------------' as '';

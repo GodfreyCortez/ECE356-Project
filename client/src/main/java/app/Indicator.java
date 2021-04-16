@@ -105,7 +105,7 @@ public class Indicator {
     }
 
     public static void addIndicator(BasicDataSource ds, Console console) {
-        String[] columns = { "year", "symbol", "eps", "revenue", "costOfRevenue", "grossProfit", "peRatio", "debtRatio", "dividendYield", "dividendPayoutRatio", "pbValueRatio", "pegRatio", "epsGrowth", "sector", "priceVar" };
+        String[] columns = { "year", "symbol", "eps", "revenue", "costOfRevenue", "grossProfit", "peRatio", "debtRatio", "dividendYield", "dividendPayoutRatio", "pbValueRatio", "pegRatio", "epsGrowth","priceVar" };
         String query = Printer.generateInsert(columns, "Indicator");
         List<String> inputs = Printer.retrieveInputs(columns, console);
         try {
@@ -118,8 +118,7 @@ public class Indicator {
             for(int i = 3; i < 14; i++) {
                 preparedStmt.setDouble(i, Double.parseDouble(inputs.get(i - 1)));
             }
-            preparedStmt.setString(14, inputs.get(13));
-            preparedStmt.setDouble(15, Double.parseDouble(inputs.get(14)));
+            preparedStmt.setDouble(14, Double.parseDouble(inputs.get(13)));
             preparedStmt.execute();
             conn.close();
         } catch (SQLException e) {

@@ -7,3 +7,4 @@ cd client;
 mvn clean install package;
 java -jar target/ECE356Stocks-1.0-SNAPSHOT.jar;
 ```
+![Image of the manual](./main.png "Stocks App")
